@@ -10,8 +10,8 @@ const userRouter = require('./routes/user')
 const menuRouter = require('./routes/menu')
 
 app.use('/', mainRouter)
-app.use('/user', userRouter)
-app.use('/menu', menuRouter)
+app.use('/user', userRouter)   // => user.html
+app.use('/menu', menuRouter)   // => menu.html
 
 
 // 포트번호 3000으로 기본 셋팅 진행!
