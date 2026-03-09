@@ -17,7 +17,7 @@ router.post('/join', (req, res)=>{
     // 1. sql 문장이 필수로 필요하다
     // 2. 전달할 데이터 값
     // 3. DB에 작업을 진행한 후 처리 할 콜백 함수
-    let sql = "INSERT INTO NODEJS_MEMBER VALUES(?, ?)"
+    let sql = "INSERT INTO NODEJS_MEMBER VALUES(?, ?, ?)"
     conn.query(sql, [id, pw, nick], (err, rows)=>{
         console.log('회원가입 완료', rows)
 
@@ -37,6 +37,14 @@ router.post('/join', (req, res)=>{
     })
 
 })
+
+// 로그인 기능
+
+
+// 회원 탈퇴 기능
+
+
+// 검색 기능
 
 
 module.exports = router
