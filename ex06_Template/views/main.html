@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block content %}
     
     <h1>동아 MX 3기 {{nick}}</h1>
 
@@ -36,6 +31,9 @@
         <p>{{i}}</p>
       {% endfor %}
 
+      <!-- 4. 페이지 자체를 끼워넣는 방법 (include) - 하단 페이지 고정 -->
+       {% include "refer.html" %}
 
-</body>
-</html>
+
+{% endblock %}
+

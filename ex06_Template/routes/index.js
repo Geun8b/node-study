@@ -7,4 +7,9 @@ router.get('/', (req, res)=>{
     res.render('main', {nick : '병근'})
 })
 
+router.get('/mypage', (req, res)=>{
+    console.log('마이 페이지')
+    res.render('mypage')
+})
+
 module.exports = router

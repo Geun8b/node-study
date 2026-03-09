@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- 기본 틀이 되는 html 파일은 항상 기본 구조를 가지고 있어야 한다. -->
+    <!-- 공통으로 사용 되는 디자인 설계 -->
+
+    <h1 style="color: red">header</h1>
+
+    <a href="/">Main</a>
+    
+    <!-- 페이지 별로 수정 되어야 하는 부분 (block content) -->
+     {% block content %}
+
+     {% endblock %}
+
+    <h1 style="color: greenyellow">footer</h1>
+    
+
+</body>
+</html>
