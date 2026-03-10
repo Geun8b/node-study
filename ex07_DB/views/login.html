@@ -1,4 +1,15 @@
 {% extends "layout.html" %}
 
-{% block contet %}
+{% block content %}
+    <h1> Login </h1>
+    <form action="/user/login" method="post">
+        <!-- 아이디 입력 -->
+        <input type="text" placeholder="아이디를 입력하세요." name="id">
+        <br>
+        <!-- 비밀번호 입력 -->
+        <input type="password" placeholder="비밀번호를 입력하세요." name="pw">
+        <br>
+        <!-- 위에 2가지 내용을 입력하면 join페이지에 데이터 전송 버튼 -->
+        <input type="submit" value="로그인">
+    </form>
 {% endblock %}
