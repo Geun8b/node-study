@@ -12,7 +12,7 @@ const conn = require('../config/db')
 router.post('/join', (req, res) => {
     console.log('회원가입 기능', req.body)
     // DB에 데이터 전달 작업
-    let { id, pw, nick } = req.body
+    let {id, pw, nick} = req.body
     console.log('id', id)
 
     // ** 회원가입 중복검사를 해보자
@@ -100,8 +100,21 @@ router.post('/login', (req, res) => {
     conn.query(sql, [id, pw], (err, rows) => {
         console.log('rows', rows)
         if (rows.length > 0) {
-            // 로그인 성공
-            res.redirect('/')
+
+            // 로그인 성공했을 경우 세션값을 저장한 후 메인페이지로 이동
+            req.session.userId = id
+            req.session.isLogined = true
+            req.session.save((err)=>{
+                if(err){
+                    res.send(`<script>
+                            alert("오류가 발생했습니다. 다시 로그인해주세요.")
+                        </script>`)
+                }else{
+                    // 로그인 성공
+                    res.redirect('/')
+                }
+            })
+
         } else {
             // 로그인 실패
             res.send(`<script>
@@ -110,8 +123,7 @@ router.post('/login', (req, res) => {
                 </script>`)
         }
     })
-})
-
+});
 
 
 // 회원 탈퇴 기능
@@ -133,7 +145,7 @@ router.post('/delete', (req, res) => {
                 </script>`)
         }
     })
-})
+});
 
 
 // 검색 기능
@@ -155,7 +167,7 @@ router.get('/select', (req, res) => {
         }
     })
 
-})
+});
 
 
 // 전체 검색 기능
@@ -167,5 +179,22 @@ router.get('/selectAll', (req, res) => {
         res.render('select', {rows : rows})  // 데이터 홈페이지 표시
     })
 
-})
-module.exports = router
+});
+
+
+// 로그아웃 기능
+router.get('/logout', (req, res)=>{
+    req.session.destroy((err)=>{
+        if(err){
+            res.send(`<script>
+                    alert("로그아웃 중 오류발생)
+                    window.location.href="/"
+                    </script>`)
+        } 
+        
+    });
+    res.clearCookie('connect.sid')
+    res.redirect('/')
+});
+
+module.exports = router;

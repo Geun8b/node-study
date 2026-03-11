@@ -4,6 +4,29 @@ const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
 const nunjucks = require('nunjucks')
 
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const fileStore = require('session-file-store')(session)
+
+// 쿠키 미들웨어 
+app.use(cookieParser())
+
+// 세션 미들웨어 
+app.use(session({
+    secret : 'secret', 
+    resave : false,
+    saveUninitialized :false,
+    store : new fileStore({
+        path : './sessions', 
+        logFn : function(){}
+    }),
+    cookie : {
+        httpOnly : true,
+        secure : false,
+        maxAge : 3600000
+    } 
+}))
+
 app.set('view engine', 'html')
 nunjucks.configure('views', {
     express : app,
