@@ -12,6 +12,23 @@ const conn = require('./config/db')
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
+app.post('/login', (req, res)=>{
+    let id = req.body.id
+    let pw = req.body.pw
+
+    let sql = 'select * from nodejs_member where id=? and pw=?'
+
+    conn.query(sql, [id, pw], (err, rows)=>{
+        if(rows.length > 0){
+            // 성공했을때 => 1
+            res.send(1)
+        }// 실패 했을때 => 0
+        else{
+            res.send(0)
+        }
+    })
+})
+
 
 // get 방식 = req.query / post 방식 = req.body
 'http://localhost:3001/join'
@@ -38,29 +55,5 @@ app.post('/join', (req, res)=>{
     })
 })
 
-'http://localhost:3001/login'
-    
-app.post('/login', (req, res)=>{
-    console.log('Node 서버 접근완료')
-    console.log(req.body)
-
-    // 변수에 담기
-    let id=req.body.id
-    let pw=req.body.pw
-
-    let sql='SELECT ID, PW, NICK FROM NODEJS_MEMBER WHERE ID=? AND PW=?'
-    conn.query(sql, [id, pw], (err, rows) => {
-        // 로그인 성공 => 1
-        // rows.affectedRows : 영향을 받은 행의 갯수
-        if(rows.affectedRows > 0){
-            res.send(1)
-        }
-        // 로그인 실패 => 0
-        else{
-            res.send(0)
-        }
-    })
-
-})
 
 app.listen(3001)
